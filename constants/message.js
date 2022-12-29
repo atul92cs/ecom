@@ -1,0 +1,10 @@
+exports.errorMsg='Invalid Input';
+exports.serverError='Server error occured';
+exports.errorcode=400;
+exports.successCode=200;
+exports.dbError=503;
+exports.createSuccess=201;
+exports.dbErrMessage='Db error occured';
+exports.uauthorized=401;
+exports.unauthorizedMessage='Not authorized ';
+exports.passwordMessage='Password Do not match';

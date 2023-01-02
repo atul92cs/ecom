@@ -5,6 +5,7 @@ let {createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory}=requi
 let {createType,getType,deleteType,updateType}=require('./typeController');
 let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery}=require('./deliveryController');
 let {getOrder,getOrders,updateOrderStatus}=require('./orderController');
+let {getOrderDetails,getOrderDetailsByOrderId}=require('./orderDetailsController');
 module.exports={
     createCategory,
     updateCategory,
@@ -33,5 +34,7 @@ module.exports={
     getDelivery,
     getOrder,
     getOrders,
-    updateOrderStatus
+    updateOrderStatus,
+    getOrderDetails,
+    getOrderDetailsByOrderId
 }

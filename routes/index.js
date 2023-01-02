@@ -5,6 +5,7 @@ let subcategory=require('./subcategory');
 let type=require('./type');
 let delivery=require('./delivery');
 let order=require('./order');
+let orderdetails=require('./orderdetails');
 module.exports={
     category,
     dimension,
@@ -12,5 +13,6 @@ module.exports={
     subcategory,
     type,
     delivery,
-    order
+    order,
+    orderdetails
 };

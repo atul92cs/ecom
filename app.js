@@ -2,7 +2,7 @@ const express=require('express');
 const PORT=process.env.PORT||3000;
 const app=express();
 let path=require('path');
-let {category,subcategory,product,type,dimension,delivery, order}=require('./routes');
+let {category,subcategory,product,type,dimension,delivery,order,orderdetails}=require('./routes');
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     res.setHeader(
@@ -25,6 +25,7 @@ app.use('/type',type);
 app.use('/dimension',dimension);
 app.use('/delivery',delivery);
 app.use('/order',order);
+app.use('/orderdetails',orderdetails);
 app.listen(PORT,()=>{
     console.log('Server started');
 });

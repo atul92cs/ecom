@@ -3,7 +3,7 @@ let {createDimension,updateDimenstion,deleteDimension,getDimension}=require('./d
 let {createProduct,updateProduct,deleteProduct,getProduct}=require('./productController');
 let {createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory}=require('./subCategoryController');
 let {createType,getType,deleteType,updateType}=require('./typeController');
-
+let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery}=require('./deliveryController');
 module.exports={
     createCategory,
     updateCategory,
@@ -24,5 +24,10 @@ module.exports={
     createType,
     getType,
     deleteType,
-    updateType
+    updateType,
+    insertDelivery,
+    insertDeliveryBulk,
+    updateDelivery,
+    deleteDelivery,
+    getDelivery
 }

@@ -6,6 +6,7 @@ let {createType,getType,deleteType,updateType}=require('./typeController');
 let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery}=require('./deliveryController');
 let {getOrder,getOrders,updateOrderStatus}=require('./orderController');
 let {getOrderDetails,getOrderDetailsByOrderId}=require('./orderDetailsController');
+let {uploadPicture,getPictures}=require('./pictureController');
 module.exports={
     createCategory,
     updateCategory,
@@ -36,5 +37,7 @@ module.exports={
     getOrders,
     updateOrderStatus,
     getOrderDetails,
-    getOrderDetailsByOrderId
+    getOrderDetailsByOrderId,
+    uploadPicture,
+    getPictures
 }

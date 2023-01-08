@@ -1,4 +1,4 @@
-let {Product,Subcategory,Category,Type,Dimension}=require('../models');
+let {Product,Subcategory,Category,Type,Dimension,Picture}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 createProduct=(req,res)=>{
@@ -72,6 +72,9 @@ getProduct=(req,res)=>{
             },
             {
                 model:Dimension
+            },
+            {
+                model:Picture
             }
         ]
     }).then(result=>{

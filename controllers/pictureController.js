@@ -12,7 +12,7 @@ uploadPicture=(req,res)=>{
             msg:'Product uploaded'
         });
     }).catch(err=>{
-        return res.status(errorCode).json({
+        return res.status(dbError).json({
             msg:dbErrMessage,
             error:err
         });

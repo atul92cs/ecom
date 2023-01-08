@@ -19,6 +19,9 @@ let Order=sequelize.define('order',{
         type:DataTypes.INTEGER,
         allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'order'
 });
 
 module.exports=Order;

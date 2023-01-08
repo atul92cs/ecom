@@ -12,11 +12,14 @@ const Dimension=sequelize.define('dimension',{
         type:DataTypes.STRING,
         allowNull:false
     },
-    productid:{
+    productId:{
         type:DataTypes.INTEGER,
         allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'dimension'
 });
-Product.hasMany(Dimension,{foreignKey:'productid'});
-Dimension.belongsTo(Product,{foreignKey:'productid'});
+Product.hasMany(Dimension,{foreignKey:'productId'});
+Dimension.belongsTo(Product,{foreignKey:'productId'});
 module.exports=Dimension;

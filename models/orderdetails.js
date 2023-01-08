@@ -9,11 +9,11 @@ const OrderDetails=sequelize.define('orderdetail',{
         autoIncrement:true,
         primaryKey:true
     },
-    orderid:{
+    orderId:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
-    productid:{
+    productId:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
@@ -25,9 +25,12 @@ const OrderDetails=sequelize.define('orderdetail',{
         type:DataTypes.INTEGER,
         allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'orderdetail'
 });
-Order.hasMany(OrderDetails,{foreignKey:'orderid'});
-OrderDetails.belongsTo(Order,{foreignKey:'orderid'});
-OrderDetails.hasMany(Product,{foreignKey:'productid'});
-Product.belongsTo(OrderDetails,{foreignKey:'productid'});
+Order.hasMany(OrderDetails,{foreignKey:'orderId'});
+OrderDetails.belongsTo(Order,{foreignKey:'orderId'});
+Product.hasMany(OrderDetails,{foreignKey:'productId'});
+OrderDetails.belongsTo(Product,{foreignKey:'productId'});
 module.exports=OrderDetails;

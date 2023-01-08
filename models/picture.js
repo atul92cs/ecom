@@ -16,6 +16,9 @@ const Picture=sequelize.define('product_picture',{
         type:DataTypes.INTEGER,
         allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'picture'
 });
 Product.hasMany(Picture,{foreignKey:'productId'});
 Picture.belongsTo(Product,{foreignKey:'productId'});

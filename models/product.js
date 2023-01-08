@@ -2,6 +2,7 @@ const{Sequelize,DataTypes}=require('sequelize');
 const sequelize=require('../config/database');
 const Category=require('./category');
 const Subcategory = require('./subcategory');
+const Type=require('./type');
 const Product=sequelize.define('product',{
     id:{
         type:DataTypes.INTEGER,
@@ -13,15 +14,7 @@ const Product=sequelize.define('product',{
         type:DataTypes.STRING,
         allowNull:false
     },
-    typeid:{
-        type:DataTypes.INTEGER,
-        allowNull:false
-    },
-    categoryid:{
-        type:DataTypes.INTEGER,
-        allowNull:false
-    },
-    subcategoryid:{
+    typeId:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
@@ -29,9 +22,14 @@ const Product=sequelize.define('product',{
         type:DataTypes.DECIMAL,
         allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'product'
 });
-Category.hasMany(Product,{foreignKey:'categoryid'});
-Product.belongsTo(Category,{foreignKey:'categoryid'});
-Subcategory.hasMany(Product,{foreignKey:'subcategoryid'});
-Product.belongsTo(Subcategory,{foreignKey:'subcategoryid'});
+Category.hasMany(Product,{foreignKey:'categoryId'});
+Product.belongsTo(Category,{foreignKey:'categoryId'});
+Subcategory.hasMany(Product,{foreignKey:'subcategoryId'});
+Product.belongsTo(Subcategory,{foreignKey:'categoryId'});
+Type.hasMany(Product,{foreignKey:'typeId'});
+Product.belongsTo(Type,{foreignKey:'typeId'});
 module.exports=Product;

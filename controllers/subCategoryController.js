@@ -1,6 +1,6 @@
 const {Subcategory,Category}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
-
+let {model} =require('sequelize');
 createSubcategory=(req,res)=>{
     let {name,category}=req.body;
     Subcategory.create({
@@ -8,7 +8,7 @@ createSubcategory=(req,res)=>{
         categoryId:category
     }).then(result=>{
         return res.status(successCode).json({
-            msg:'Picture uploaded'
+            msg:'sub category created'
         });
     }).catch(err=>{
         return res.status(dbError).json({
@@ -19,11 +19,7 @@ createSubcategory=(req,res)=>{
 }
 getSubcategory=(req,res)=>{
     Subcategory.findAll({
-        include:[
-            {
-                model:Category
-            }
-        ]
+         include:[{model:Category,required:false,attributes:['id','name']}]
     }).then(result=>{
         return res.status(successCode).json({
             subcategories:result

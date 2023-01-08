@@ -5,7 +5,7 @@ createDimension=(req,res)=>{
     let {measurement,product}=req.body;
     Dimension.create({
         measurement:measurement,
-        productid:product
+        productId:product
     }).then(result=>{
         return res.status(successCode).json({
             msg:'Dimension created'

@@ -1,7 +1,7 @@
 const{Sequelize,DataTypes}=require('sequelize');
 const sequelize=require('../config/database');
 const Product=require('./product');
-const Type=sequelize.define('type',{
+const Type=sequelize.define('product_type',{
     id:{
         type:DataTypes.INTEGER,
         allowNull:false,
@@ -12,7 +12,9 @@ const Type=sequelize.define('type',{
         type:DataTypes.STRING,
         allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'product_type'
 });
-Type.hasMany(Product,{foreignKey:'typeid'});
-Product.belongsTo(Type,{foreignKey:'typeid'});
+
 module.exports=Type;

@@ -8,15 +8,18 @@ const DeliveryOps=sequelize.define('deliveryop',{
         primaryKey:true,
         allowNull:false
     },
-    productid:{
-        type:DataTypes.INTEGER,
-        allowNull:false
-    },
     pincode:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    productId:{
+        type:DataTypes.INTEGER,
+        allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'deliveryop'
 });
-Product.hasMany(DeliveryOps,{foreignKey:'productid'});
-DeliveryOps.belongsTo(Product,{foreignKey:'productid'});
+Product.hasMany(DeliveryOps,{foreignKey:'productId'});
+DeliveryOps.belongsTo(Product,{foreignKey:'productId'});
 module.exports=DeliveryOps;

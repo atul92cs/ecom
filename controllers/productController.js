@@ -1,4 +1,4 @@
-let {Product,Subcategory,Category,Type}=require('../models');
+let {Product,Subcategory,Category,Type,Dimension}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 createProduct=(req,res)=>{
@@ -6,9 +6,9 @@ createProduct=(req,res)=>{
     Product.create({
         name:name,
         cost:cost,
-       categoryid:category,
-       subcategoryid:subcategory,
-       typeid:type
+       categoryId:category,
+       subcategoryId:subcategory,
+       typeId:type
     }).then(result=>{
         return res.status(successCode).json({
             msg:'Product created'
@@ -69,6 +69,9 @@ getProduct=(req,res)=>{
             },
             {
                 model:Type
+            },
+            {
+                model:Dimension
             }
         ]
     }).then(result=>{

@@ -7,6 +7,7 @@ const Picture=require('./picture');
 const DeliveryOps=require('./delivery');
 const Order=require('./order');
 const OrderDetails=require('./orderdetails');
+const DeliveryOption=require('./deliverytype');
 const sequelize=require('../config/database');
 module.exports={
     Category,
@@ -17,7 +18,8 @@ module.exports={
     Picture,
     DeliveryOps,
     Order,
-    OrderDetails
+    OrderDetails,
+    DeliveryOption
 }
 sequelize.sync({alter:true}).then((result)=>{
     

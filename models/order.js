@@ -15,7 +15,7 @@ let Order=sequelize.define('order',{
         type:DataTypes.STRING,
         allowNull:false
     },
-    user:{
+    userId:{
         type:DataTypes.INTEGER,
         allowNull:false
     }

@@ -11,5 +11,8 @@ const Category=sequelize.define('category',{
         type:DataTypes.STRING,
         allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'category'
 });
 module.exports=Category;

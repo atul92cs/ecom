@@ -11,12 +11,11 @@ const Subcategory=sequelize.define('subcategory',{
     name:{
         type:DataTypes.STRING,
         allowNull:false
-    },
-    categoryId:{
-        type:DataTypes.INTEGER,
-        allowNull:false
     }
+},{
+    freezeTableName:true,
+    tableName:'subcategory'
 });
 Category.hasMany(Subcategory,{foreignKey:'categoryId'});
-Subcategory.belongsTo(Category,{foreignKey:'categroyId'});
+Subcategory.belongsTo(Category,{foreignKey:'categoryId'});
 module.exports=Subcategory;

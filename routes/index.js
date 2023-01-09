@@ -7,6 +7,7 @@ let delivery=require('./delivery');
 let order=require('./order');
 let orderdetails=require('./orderdetails');
 let picture=require('./picture');
+let deliveryopt=require('./deliveryopt');
 module.exports={
     category,
     dimension,
@@ -16,5 +17,6 @@ module.exports={
     delivery,
     order,
     orderdetails,
-    picture
+    picture,
+    deliveryopt
 };

@@ -7,6 +7,7 @@ let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery
 let {getOrder,getOrders,updateOrderStatus}=require('./orderController');
 let {getOrderDetails,getOrderDetailsByOrderId}=require('./orderDetailsController');
 let {uploadPicture,getPictures}=require('./pictureController');
+let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption}=require('./deliveryoptController');
 module.exports={
     createCategory,
     updateCategory,
@@ -39,5 +40,9 @@ module.exports={
     getOrderDetails,
     getOrderDetailsByOrderId,
     uploadPicture,
-    getPictures
+    getPictures,
+    createDeliveryOptions,
+    getDeliveryOptions,
+    updateDeliveryOption,
+    deleteDeliveryOption
 }

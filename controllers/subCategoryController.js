@@ -63,4 +63,18 @@ deleteSubcategory=(req,res)=>{
             });
     });
 }
-module.exports={createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory};
+getSubCategoryCount=(req,res)=>{
+    let {filter}=req.query
+    console.log(filter);
+    Subcategory.count(filter).then(result=>{
+        return res.status(successCode).json({
+            count:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    });
+}
+module.exports={createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory,getSubCategoryCount};

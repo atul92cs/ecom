@@ -1,4 +1,4 @@
-let {createCategory,updateCategory,deleteCategory,getCategory}=require('../controllers');
+let {createCategory,updateCategory,deleteCategory,getCategory,getCategoryCount}=require('../controllers');
 let express=require('express');
 let router=express.Router();
 
@@ -16,5 +16,8 @@ router.delete('/:id',(req,res)=>{
 
 router.get('/',(req,res)=>{
     getCategory(req,res);
+});
+router.get('/count',(req,res)=>{
+    getCategoryCount(req,res);
 });
 module.exports=router;

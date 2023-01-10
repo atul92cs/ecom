@@ -1,12 +1,13 @@
-let {createCategory,updateCategory,deleteCategory,getCategory}=require('./categoryController');
+let {createCategory,updateCategory,deleteCategory,getCategory,getCategoryCount}=require('./categoryController');
 let {createDimension,updateDimenstion,deleteDimension,getDimension}=require('./dimensionController');
 let {createProduct,updateProduct,deleteProduct,getProduct}=require('./productController');
-let {createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory}=require('./subCategoryController');
+let {createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory,getSubCategoryCount}=require('./subCategoryController');
 let {createType,getType,deleteType,updateType}=require('./typeController');
 let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery}=require('./deliveryController');
 let {getOrder,getOrders,updateOrderStatus}=require('./orderController');
 let {getOrderDetails,getOrderDetailsByOrderId}=require('./orderDetailsController');
 let {uploadPicture,getPictures}=require('./pictureController');
+let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption}=require('./deliveryoptController');
 module.exports={
     createCategory,
     updateCategory,
@@ -39,5 +40,11 @@ module.exports={
     getOrderDetails,
     getOrderDetailsByOrderId,
     uploadPicture,
-    getPictures
+    getPictures,
+    createDeliveryOptions,
+    getDeliveryOptions,
+    updateDeliveryOption,
+    deleteDeliveryOption,
+    getCategoryCount,
+    getSubCategoryCount
 }

@@ -60,4 +60,18 @@ getCategory=(req,res)=>{
         });
     });
 }
-module.exports={createCategory,updateCategory,deleteCategory,getCategory};
+getCategoryCount=(req,res)=>{
+    let {filter}=req.query
+    console.log(filter);
+    Category.count(filter).then(result=>{
+        return res.status(successCode).json({
+            count:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    });
+}
+module.exports={createCategory,updateCategory,deleteCategory,getCategory,getCategoryCount};

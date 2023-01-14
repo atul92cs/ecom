@@ -1,6 +1,6 @@
 let {createCategory,updateCategory,deleteCategory,getCategory,getCategoryCount}=require('./categoryController');
 let {createDimension,updateDimenstion,deleteDimension,getDimension,getDimensionCount}=require('./dimensionController');
-let {createProduct,updateProduct,deleteProduct,getProduct}=require('./productController');
+let {createProduct,updateProduct,deleteProduct,getProduct,getProductCount}=require('./productController');
 let {createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory,getSubCategoryCount}=require('./subCategoryController');
 let {createType,getType,deleteType,updateType,getTypeCount}=require('./typeController');
 let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery,getDeliveryCount}=require('./deliveryController');
@@ -52,5 +52,6 @@ module.exports={
     getDeliveryCount,
     getDimensionCount,
     getOrderCount,
-    getOrderDetailsCount
+    getOrderDetailsCount,
+    getProductCount
 }

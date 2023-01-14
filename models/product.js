@@ -21,6 +21,14 @@ const Product=sequelize.define('product',{
     cost:{
         type:DataTypes.DECIMAL,
         allowNull:false
+    },
+    categoryId:{
+        type:DataTypes.INTEGER,
+        allowNull:false
+    },
+    subcategoryId:{
+        type:DataTypes.INTEGER,
+        allowNull:false
     }
 },{
     freezeTableName:true,

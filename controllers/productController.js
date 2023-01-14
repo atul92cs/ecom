@@ -88,5 +88,17 @@ getProduct=(req,res)=>{
         });
     });
 }
-
-module.exports={createProduct,updateProduct,deleteProduct,getProduct};
+getProductCount=(req,res)=>{
+    let{filter}=req.query;
+    Product.count(filter).then(result=>{
+        return res.status(successCode).json({
+            count:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    });
+}
+module.exports={createProduct,updateProduct,deleteProduct,getProduct,getProductCount};

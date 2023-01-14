@@ -2,10 +2,10 @@ const {Dimension,Product}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 createDimension=(req,res)=>{
-    let {measurement,product}=req.body;
+    let {measurement,productId}=req.body;
     Dimension.create({
         measurement:measurement,
-        productId:product
+        productId:productId
     }).then(result=>{
         return res.status(successCode).json({
             msg:'Dimension created'

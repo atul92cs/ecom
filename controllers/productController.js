@@ -2,13 +2,13 @@ let {Product,Subcategory,Category,Type,Dimension,Picture}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 createProduct=(req,res)=>{
-    let {name,cost,category,subcategory,type}=req.body;
+    let {name,cost,categoryId,subcategoryId,typeId}=req.body;
     Product.create({
         name:name,
         cost:cost,
-       categoryId:category,
-       subcategoryId:subcategory,
-       typeId:type
+       categoryId:categoryId,
+       subcategoryId:subcategoryId,
+       typeId:typeId
     }).then(result=>{
         return res.status(successCode).json({
             msg:'Product created'
@@ -23,13 +23,13 @@ createProduct=(req,res)=>{
 
 updateProduct=(req,res)=>{
     let {id}=req,params;
-    let {name,cost,categoryid,subcategoryid,typeid}=req.body;
+    let {name,cost,categoryId,subcategoryId,typeId}=req.body;
     Product.findOne({where:{id:id}}).then(product=>{
         product.name=name;
         product.cost=cost;
-        product.categoryid=categoryid;
-        product.subcategoryid=subcategoryid;
-        product.typeid=typeid;
+        product.categoryId=categoryId;
+        product.subcategoryId=subcategoryId;
+        product.typeId=typeId;
         product.save();
     }).then(result=>{
         return res.status(successCode).json({

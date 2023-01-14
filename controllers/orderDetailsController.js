@@ -8,7 +8,7 @@ getOrderDetails=(req,res)=>{
         ]
     }).then(result=>{
         return res.status(successCode).json({
-            Orders:result
+            orders:result
         });
     }).catch(err=>{
         return res.status(dbError).json({
@@ -34,4 +34,17 @@ getOrderDetailsByOrderId=(req,res)=>{
         });
     });
 }
-module.exports={getOrderDetails,getOrderDetailsByOrderId};
+getOrderDetailsCount=(req,res)=>{
+    let {filter}=req.query;
+    OrderDetails.count(filter).then(result=>{
+        return res.status(successCode).json({
+            count:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    })
+}
+module.exports={getOrderDetails,getOrderDetailsByOrderId,getOrderDetailsCount};

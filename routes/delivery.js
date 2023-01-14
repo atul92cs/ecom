@@ -1,4 +1,4 @@
-let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery}=require('../controllers');
+let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery,getDeliveryCount}=require('../controllers');
 let express=require('express');
 let router=express.Router();
 
@@ -17,5 +17,7 @@ router.post('/bulk',(req,res)=>{
 router.delete('/:id',(req,res)=>{
     deleteDelivery(req,res);
 });
-
+router.get('/count',(req,res)=>{
+    getDeliveryCount(req,res);
+});
 module.exports=router;

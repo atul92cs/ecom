@@ -1,4 +1,4 @@
-let {createDimension,updateDimenstion,deleteDimension,getDimension}=require('../controllers');
+let {createDimension,updateDimenstion,deleteDimension,getDimension,getDimensionCount}=require('../controllers');
 let express=require('express');
 let router=express.Router();
 
@@ -14,5 +14,8 @@ router.delete('/:id',(req,res)=>{
 });
 router.get('/',(req,res)=>{
     getDimension(req,res);
+});
+router.get('/count',(req,res)=>{
+    getDimensionCount(req,res);
 });
 module.exports=router;

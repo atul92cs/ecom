@@ -61,8 +61,8 @@ getCategory=(req,res)=>{
     });
 }
 getCategoryCount=(req,res)=>{
-    let {filter}=req.query
-    console.log(filter);
+    let {filter}=req.query;
+    
     Category.count(filter).then(result=>{
         return res.status(successCode).json({
             count:result

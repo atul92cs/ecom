@@ -1,5 +1,5 @@
 let {queryInterface}=require('sequelize');
-let  DeliveryOps=require('../models');
+let  {DeliveryOps}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 insertDeliveryBulk=(req,res)=>{
@@ -33,17 +33,16 @@ insertDelivery=(req,res)=>{
     });
 }
 getDelivery=(req,res)=>{
-    DeliveryOps.findAll({}).then(result=>{
-        return res.status(successCode).json({
-            deliveryops:result
-        });
-
-    }).catch(error=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:error
-        });
+   DeliveryOps.findAll({}).then(result=>{
+    return res.status(successCode).json({
+        deliveryops:result
     });
+   }).catch(err=>{
+    return res.status(dbError).json({
+        msg:dbErrMessage,
+        error:err
+    });
+   });
 }
 updateDelivery=(req,res)=>{
     let {id}=req.params;
@@ -71,7 +70,8 @@ deleteDelivery=(req,res)=>{
         });
     }).catch(err=>{
         return res.status(dbError).json({
-            msg:dbErrMessage
+            msg:dbErrMessage,
+            error:err
         });
     });
 }
@@ -85,4 +85,17 @@ createPincode=(productid,pincodes)=>{
     });
     return deliveryoptions;
 }
-module.exports={insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery};
+getDeliveryCount=(req,res)=>{
+    let {filter}=req.query;
+    DeliveryOps.count(filter).then(result=>{
+        return res.status(successCode).json({
+            count:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    });
+}
+module.exports={insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery,getDeliveryCount};

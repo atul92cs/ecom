@@ -1,13 +1,13 @@
 let {createCategory,updateCategory,deleteCategory,getCategory,getCategoryCount}=require('./categoryController');
-let {createDimension,updateDimenstion,deleteDimension,getDimension}=require('./dimensionController');
+let {createDimension,updateDimenstion,deleteDimension,getDimension,getDimensionCount}=require('./dimensionController');
 let {createProduct,updateProduct,deleteProduct,getProduct}=require('./productController');
 let {createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory,getSubCategoryCount}=require('./subCategoryController');
-let {createType,getType,deleteType,updateType}=require('./typeController');
-let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery}=require('./deliveryController');
-let {getOrder,getOrders,updateOrderStatus}=require('./orderController');
-let {getOrderDetails,getOrderDetailsByOrderId}=require('./orderDetailsController');
+let {createType,getType,deleteType,updateType,getTypeCount}=require('./typeController');
+let {insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery,getDeliveryCount}=require('./deliveryController');
+let {getOrder,getOrders,updateOrderStatus,getOrderCount}=require('./orderController');
+let {getOrderDetails,getOrderDetailsByOrderId,getOrderDetailsCount}=require('./orderDetailsController');
 let {uploadPicture,getPictures}=require('./pictureController');
-let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption}=require('./deliveryoptController');
+let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption,getDeliveryOptionsCount}=require('./deliveryoptController');
 module.exports={
     createCategory,
     updateCategory,
@@ -46,5 +46,11 @@ module.exports={
     updateDeliveryOption,
     deleteDeliveryOption,
     getCategoryCount,
-    getSubCategoryCount
+    getSubCategoryCount,
+    getTypeCount,
+    getDeliveryOptionsCount,
+    getDeliveryCount,
+    getDimensionCount,
+    getOrderCount,
+    getOrderDetailsCount
 }

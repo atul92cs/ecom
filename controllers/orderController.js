@@ -1,4 +1,4 @@
-let Order=require('../models');
+let {Order}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 getOrders=(req,res)=>{
@@ -17,9 +17,14 @@ getOrders=(req,res)=>{
 getOrder=(req,res)=>{
     let {id}=req.params;
     Order.findOne({where:{id:id}}).then(result=>{
-
+        return res.status(successCode).json({
+            order:result
+        });
     }).catch(error=>{
-
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:error
+        });
     });
 }
 updateOrderStatus=(req,res)=>{
@@ -36,5 +41,17 @@ updateOrderStatus=(req,res)=>{
         });
     });
 }
-
-module.exports={getOrder,getOrders,updateOrderStatus};
+getOrderCount=(req,res)=>{
+    let {filter}=req.query;
+    Order.count(filter).then(result=>{
+        return res.status(successCode).json({
+            count:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    });
+}
+module.exports={getOrder,getOrders,updateOrderStatus,getOrderCount};

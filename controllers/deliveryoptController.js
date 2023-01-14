@@ -7,7 +7,7 @@ createDeliveryOptions=(req,res)=>{
     DeliveryOption.create({name:name}).then(
         result=>{
                 return res.status(successCode).json({
-                    msg:'Delivery option'
+                    msg:'Delivery option created'
                 });
         }
     ).catch(err=>{
@@ -64,5 +64,17 @@ deleteDeliveryOption=(req,res)=>{
         });
     });
 }
-
-module.exports={createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption};
+getDeliveryOptionsCount=(req,res)=>{
+    let {filter}=req.query;
+    DeliveryOption.count(filter).then(result=>{
+        return res.status(successCode).json({
+            count:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    });
+}
+module.exports={createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption,getDeliveryOptionsCount};

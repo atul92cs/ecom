@@ -1,4 +1,4 @@
-let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption}=require('../controllers');
+let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption,getDeliveryOptionsCount}=require('../controllers');
 let express=require('express');
 let router=express.Router();
 
@@ -13,6 +13,9 @@ router.put('/:id',(req,res)=>{
 });
 router.delete('/:id',(req,res)=>{
     deleteDeliveryOption(req,res);
+});
+router.get('/count',(req,res)=>{
+    getDeliveryOptionsCount(req,res);
 });
 
 module.exports=router;

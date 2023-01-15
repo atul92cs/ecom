@@ -1,5 +1,6 @@
 const{Sequelize,DataTypes}=require('sequelize');
 const Order=require('./order');
+const Product=require('./product');
 const sequelize=require('../config/database');
 const DeliveryOption=sequelize.define('deliveryopt',{
     id:{
@@ -16,6 +17,6 @@ const DeliveryOption=sequelize.define('deliveryopt',{
     freezeTableName:true,
     tableName:'deliveryopt'
 });
-DeliveryOption.hasMany(Order,{foreignKey:'optionId'});
-Order.belongsTo(DeliveryOption,{foreignKey:'optionId'});
+DeliveryOption.hasMany(Product,{foreignKey:'optionId'});
+Product.belongsTo(DeliveryOption,{foreignKey:'optionId'});
 module.exports=DeliveryOption;

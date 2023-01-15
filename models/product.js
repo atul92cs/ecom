@@ -29,6 +29,10 @@ const Product=sequelize.define('product',{
     subcategoryId:{
         type:DataTypes.INTEGER,
         allowNull:false
+    },
+    optionId:{
+        type:DataTypes.INTEGER,
+        allowNull:true
     }
 },{
     freezeTableName:true,

@@ -8,6 +8,9 @@ const DeliveryOps=require('./delivery');
 const Order=require('./order');
 const OrderDetails=require('./orderdetails');
 const DeliveryOption=require('./deliverytype');
+const Igst=require('./igst');
+const Cgst=require('./cgst');
+const Sgst=require('./sgst');
 const sequelize=require('../config/database');
 module.exports={
     Category,
@@ -19,7 +22,10 @@ module.exports={
     DeliveryOps,
     Order,
     OrderDetails,
-    DeliveryOption
+    DeliveryOption,
+    Igst,
+    Cgst,
+    Sgst
 }
 sequelize.sync({alter:true}).then((result)=>{
     

@@ -91,7 +91,7 @@ getProduct=(req,res)=>{
 }
 getProductCount=(req,res)=>{
     let{filter}=req.query;
-    Product.count(filter).then(result=>{
+    Product.count({filter}).then(result=>{
         return res.status(successCode).json({
             count:result
         });

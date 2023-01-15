@@ -1,6 +1,6 @@
 const {Category}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
-
+const {Op}=require('sequelize');
 createCategory=(req,res)=>{
     let {name}=req.body;
     Category.create({name:name}).then(
@@ -49,7 +49,9 @@ deleteCategory=(req,res)=>{
 }
 
 getCategory=(req,res)=>{
-    Category.findAll({}).then(result=>{
+    let {id,name}=req.query;
+    let  condition=name?{name:{[Op.like]:`%${name}%`}}:null;
+    Category.findAll({where:condition}).then(result=>{
         return res.status(successCode).json({
             categories:result
         });
@@ -62,8 +64,8 @@ getCategory=(req,res)=>{
 }
 getCategoryCount=(req,res)=>{
     let {filter}=req.query;
-    
-    Category.count(filter).then(result=>{
+   
+    Category.count({filter}).then(result=>{
         return res.status(successCode).json({
             count:result
         });

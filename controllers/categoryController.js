@@ -50,7 +50,9 @@ deleteCategory=(req,res)=>{
 
 getCategory=(req,res)=>{
     let {id,name}=req.query;
-    let  condition=name?{name:{[Op.like]:`%${name}%`}}:null;
+    let  condition;
+    condition=name?{name:{[Op.like]:`%${name}%`}}:null;
+    condition=id?{id:{[Op.eq]:id}}:null;
     Category.findAll({where:condition}).then(result=>{
         return res.status(successCode).json({
             categories:result

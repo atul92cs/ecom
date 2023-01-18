@@ -6,6 +6,7 @@ createCategory=(req,res)=>{
     let {name}=req.body;
     Category.create({name:name}).then(
         result=>{
+            
             return res.status(successCode).json({
                 msg:'Category Created'
             });

@@ -37,16 +37,16 @@ const Product=sequelize.define('product',{
         type:DataTypes.INTEGER,
         allowNull:true
     },
-    cgstId:{
-        type:DataTypes.INTEGER,
+    Cgst:{
+        type:DataTypes.DECIMAL,
         allowNull:true
     },
-    sgstId:{
-        type:DataTypes.INTEGER,
+    Sgst:{
+        type:DataTypes.DECIMAL,
         allowNull:true
     },
-    igstId:{
-        type:DataTypes.INTEGER,
+    Igst:{
+        type:DataTypes.DECIMAL,
         allowNull:true
     }
 },{

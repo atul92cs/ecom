@@ -2,14 +2,19 @@ let {Product,Subcategory,Category,Type,Dimension,Picture}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 createProduct=(req,res)=>{
-    let {name,cost,categoryId,subcategoryId,typeId,optionId}=req.body;
+    let {name,cost,categoryId,subcategoryId,typeId,optionId,sgst,cgst,igst}=req.body;
+       tax=calculateGst(sgst,cgst,igst,cost);
+       cost=cost+tax;
     Product.create({
         name:name,
         cost:cost,
        categoryId:categoryId,
        subcategoryId:subcategoryId,
        typeId:typeId,
-       optionId:optionId
+       optionId:optionId,
+       Sgst:sgst,
+       Cgst:cgst,
+       Igst:igst
     }).then(result=>{
         return res.status(successCode).json({
             msg:'Product created'
@@ -23,14 +28,19 @@ createProduct=(req,res)=>{
 }
 
 updateProduct=(req,res)=>{
-    let {id}=req,params;
-    let {name,cost,categoryId,subcategoryId,typeId}=req.body;
+    let {id}=req.params;
+    let {name,cost,categoryId,subcategoryId,typeId,sgst,cgst,igst}=req.body;
+    tax=calculateGst(sgst,cgst,igst,cost);
+       cost=cost+tax;
     Product.findOne({where:{id:id}}).then(product=>{
         product.name=name;
         product.cost=cost;
         product.categoryId=categoryId;
         product.subcategoryId=subcategoryId;
         product.typeId=typeId;
+        product.Sgst=sgst;
+        product.Cgst=cgst;
+        product.Igst=igst;
         product.save();
     }).then(result=>{
         return res.status(successCode).json({
@@ -102,4 +112,8 @@ getProductCount=(req,res)=>{
         });
     });
 }
+ calculateGst=(sgst,cgst,igst,cost)=>{
+    let tax=(cost*((sgst+cgst+igst)/100));
+    return tax;
+ }
 module.exports={createProduct,updateProduct,deleteProduct,getProduct,getProductCount};

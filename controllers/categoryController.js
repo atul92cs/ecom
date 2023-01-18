@@ -52,7 +52,7 @@ deleteCategory=(req,res)=>{
 getCategory=(req,res)=>{
     let {id,name}=req.query;
     if(!id && !name){
-    let condition=generateConditionOr(req);
+
     Category.findAll({}).then(result=>{
         return res.status(successCode).json({
             categories:result

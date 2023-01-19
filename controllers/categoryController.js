@@ -1,10 +1,12 @@
 const {Category}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
-
+const {Op}=require('sequelize');
+const {generateConditionOr}=require('../helpers/condition-builder');
 createCategory=(req,res)=>{
     let {name}=req.body;
     Category.create({name:name}).then(
         result=>{
+            
             return res.status(successCode).json({
                 msg:'Category Created'
             });
@@ -49,6 +51,9 @@ deleteCategory=(req,res)=>{
 }
 
 getCategory=(req,res)=>{
+    let {id,name}=req.query;
+    if(!id && !name){
+
     Category.findAll({}).then(result=>{
         return res.status(successCode).json({
             categories:result
@@ -59,11 +64,28 @@ getCategory=(req,res)=>{
             error:err
         });
     });
+  }
+  else
+  {
+    let condition=generateConditionOr(req);
+    Category.findAll({
+        where:{[Op.or]:condition}
+    }).then(result=>{
+        return res.status(successCode).json({
+            categories:result
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    });
+  }
 }
 getCategoryCount=(req,res)=>{
-    let {filter}=req.query;
     
-    Category.count(filter).then(result=>{
+     let conditions=generateConditionOr(req);
+    Category.count({where:{[Op.or]:conditions}}).then(result=>{
         return res.status(successCode).json({
             count:result
         });

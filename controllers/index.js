@@ -8,6 +8,9 @@ let {getOrder,getOrders,updateOrderStatus,getOrderCount}=require('./orderControl
 let {getOrderDetails,getOrderDetailsByOrderId,getOrderDetailsCount}=require('./orderDetailsController');
 let {uploadPicture,getPictures}=require('./pictureController');
 let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption,getDeliveryOptionsCount}=require('./deliveryoptController');
+let {createIgst,deleteIgst,updateIgst,getIgst,igstCount}=require('./igstController');
+let {createSgst,deleteSgst,updateSgst,getSgst,sgstCount}=require('./sgstController');
+let {createCgst,deleteCgst,updateCgst,getCgst,cgstCount}=require('./cgstController');
 module.exports={
     createCategory,
     updateCategory,
@@ -53,5 +56,20 @@ module.exports={
     getDimensionCount,
     getOrderCount,
     getOrderDetailsCount,
-    getProductCount
+    getProductCount,
+    createIgst,
+    deleteIgst,
+    updateIgst,
+    getIgst,
+    igstCount,
+    createSgst,
+    deleteSgst,
+    updateSgst,
+    getSgst,
+    sgstCount,
+    createCgst,
+    deleteCgst,
+    updateCgst,
+    getCgst,
+    cgstCount
 }

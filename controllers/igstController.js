@@ -1,14 +1,14 @@
-const {Dimension,Product}=require('../models');
+const {Igst} =require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
-createDimension=(req,res)=>{
-    let {measurement,productId}=req.body;
-    Dimension.create({
-        measurement:measurement,
-        productId:productId
+createIgst=(req,res)=>{
+    let {name,value}=req.body;
+    Igst.create({
+        name:name,
+        value:value
     }).then(result=>{
         return res.status(successCode).json({
-            msg:'Dimension created'
+            msg:'Igst created'
         });
     }).catch(err=>{
         return res.status(dbError).json({
@@ -18,16 +18,32 @@ createDimension=(req,res)=>{
     });
 }
 
-updateDimenstion=(req,res)=>{
+deleteIgst=(req,res)=>{
     let {id}=req.params;
-    let {measurement,productid}=req.body;
-    Dimension.findOne({where:{id:id}}).then(dimension=>{
-        dimension.measurement=measurement;
-        dimension.productid=productid;
-        dimension.save();
-    }).then(result=>{
+    Igst.destroy({where:{id:id}}).then(result=>{
         return res.status(successCode).json({
-            msg:'Dimension updated'
+            msg:'Igst deleted'
+        });
+    }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+    })
+}
+
+updateIgst=(req,res)=>{
+    let {id}=req.params;
+    let {name,value}=req.body;
+    Igst.findOne({where:{id:id}}).then(
+        result=>{
+            result.name=name;
+            result.value=value;
+            result.save()
+        }
+    ).then(result=>{
+        return res.status(successCode).json({
+            msg:'Igst updated'
         });
     }).catch(err=>{
         return res.status(dbError).json({
@@ -35,45 +51,22 @@ updateDimenstion=(req,res)=>{
             error:err
         });
     });
-
 }
-
-deleteDimension=(req,res)=>{
-    Dimension.destroy({where:{id:id}}).then(result=>{
+getIgst=(req,res)=>{
+    Igst.findAll({}).then(result=>{
         return res.status(successCode).json({
-            msg:'Dimension deleted for product'
+            igsts:result
         });
     }).catch(err=>{
         return res.status(dbError).json({
             msg:dbErrMessage,
             error:err
-        });
-    });
+        });       
+    })
 }
-
-getDimension=(req,res)=>{
-    Dimension.findAll({
-        include:[
-            {
-                model:Product
-            }
-        ]
-    }).then(result=>{
-        return res.status(successCode).json({
-            products:result
-        });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
-        });
-    });
-
-   
-}
-getDimensionCount=(req,res)=>{
+igstCount=(req,res)=>{
     let {filter}=req.query;
-    Dimension.count(filter).then(result=>{
+    Igst.count(filter).then(result=>{
         return res.status(successCode).json({
             count:result
         });
@@ -82,6 +75,6 @@ getDimensionCount=(req,res)=>{
             msg:dbErrMessage,
             error:err
         });
-    });
+    })
 }
-module.exports={createDimension,updateDimenstion,deleteDimension,getDimension,getDimensionCount};
+module.exports={createIgst,deleteIgst,updateIgst,getIgst,igstCount};

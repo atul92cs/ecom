@@ -3,6 +3,9 @@ const sequelize=require('../config/database');
 const Category=require('./category');
 const Subcategory = require('./subcategory');
 const Type=require('./type');
+const Igst=require('./igst');
+const Cgst=require('./cgst');
+const Sgst=require('./sgst');
 const Product=sequelize.define('product',{
     id:{
         type:DataTypes.INTEGER,
@@ -29,6 +32,22 @@ const Product=sequelize.define('product',{
     subcategoryId:{
         type:DataTypes.INTEGER,
         allowNull:false
+    },
+    optionId:{
+        type:DataTypes.INTEGER,
+        allowNull:true
+    },
+    Cgst:{
+        type:DataTypes.DECIMAL,
+        allowNull:true
+    },
+    Sgst:{
+        type:DataTypes.DECIMAL,
+        allowNull:true
+    },
+    Igst:{
+        type:DataTypes.DECIMAL,
+        allowNull:true
     }
 },{
     freezeTableName:true,
@@ -40,4 +59,10 @@ Subcategory.hasMany(Product,{foreignKey:'subcategoryId'});
 Product.belongsTo(Subcategory,{foreignKey:'categoryId'});
 Type.hasMany(Product,{foreignKey:'typeId'});
 Product.belongsTo(Type,{foreignKey:'typeId'});
+//Igst.hasMany(Product,{foreignKey:'igstId'});
+//Product.belongsTo(Igst,{foreignKey:'igstId'});
+//Cgst.hasMany(Product,{foreignKey:'cgstId'});
+//Product.belongsTo(Cgst,{foreignKey:'cgstId'});
+//Sgst.hasMany(Product,{foreignKey:'sgstId'});
+Product.belongsTo(Sgst,{foreignKey:'sgstId'});
 module.exports=Product;

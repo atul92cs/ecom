@@ -2,10 +2,10 @@ const {Subcategory,Category}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 let {model} =require('sequelize');
 createSubcategory=(req,res)=>{
-    let {name,category}=req.body;
+    let {name,categoryId}=req.body;
     Subcategory.create({
         name:name,
-        categoryId:category
+        categoryId:categoryId
     }).then(result=>{
         return res.status(successCode).json({
             msg:'sub category created'

@@ -11,6 +11,10 @@ const Subcategory=sequelize.define('subcategory',{
     name:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    categoryId:{
+        type:DataTypes.INTEGER,
+        allowNull:false
     }
 },{
     freezeTableName:true,

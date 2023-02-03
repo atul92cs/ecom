@@ -1,6 +1,7 @@
 const {Dimension,Product}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
-
+const { generateCondition } = require('../helpers/condition-builder');
+const {Or}=require('sequelize');
 createDimension=(req,res)=>{
     let {measurement,productId}=req.body;
     Dimension.create({
@@ -52,22 +53,47 @@ deleteDimension=(req,res)=>{
 }
 
 getDimension=(req,res)=>{
-    Dimension.findAll({
-        include:[
-            {
-                model:Product
-            }
-        ]
-    }).then(result=>{
-        return res.status(successCode).json({
-            products:result
+    let {filter}=req.query;
+    if(!filter)
+    {
+        Dimension.findAll({
+            include:[
+                {
+                    model:Product
+                }
+            ]
+        }).then(result=>{
+            return res.status(successCode).json({
+                products:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+    }
+    else
+    {
+        let condition=generateCondition(req,res);
+        Dimension.findAll({
+            where:{[Op.or]:condition},
+            include:[
+                {
+                    model:Product
+                }
+            ]
+        }).then(result=>{
+            return res.status(successCode).json({
+                products:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    });
+    }
 
    
 }

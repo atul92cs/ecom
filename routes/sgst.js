@@ -12,9 +12,9 @@ router.get('/count',(req,res)=>{
     sgstCount(req,res);
 });
 router.delete('/:id',(req,res)=>{
-    updateSgst(req,res);
+   deleteSgst(req,res);
 });
 router.put('/:id',(req,res)=>{
-    deleteSgst(req,res);
+    updateSgst(req,res);
 });
 module.exports=router;

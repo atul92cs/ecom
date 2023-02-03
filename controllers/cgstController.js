@@ -1,6 +1,6 @@
 const {Cgst} =require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
-
+const {generateCondition}=require('../helpers/condition-builder');
 createCgst=(req,res)=>{
     let {name,value}=req.body;
     Cgst.create({
@@ -53,16 +53,34 @@ updateCgst=(req,res)=>{
     });
 }
 getCgst=(req,res)=>{
-    Cgst.findAll({}).then(result=>{
-        return res.status(successCode).json({
-            igsts:result
+    let {filter}=req.query;
+    if(!filter)
+    {
+        Cgst.findAll({}).then(result=>{
+            return res.status(successCode).json({
+                igsts:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });       
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
-        });       
-    })
+    }
+    else
+    {
+        let condition=generateCondition(req,res);
+        Cgst.findAll({where:{[Op.or]:condition}}).then(result=>{
+            return res.status(successCode).json({
+                igsts:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });       
+        });
+    }
 }
 cgstCount=(req,res)=>{
     let {filter}=req.query;

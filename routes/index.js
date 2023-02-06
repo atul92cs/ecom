@@ -11,6 +11,7 @@ let deliveryopt=require('./deliveryopt');
 let igst=require('./igst');
 let sgst=require('./sgst');
 let cgst=require('./cgst');
+let country=require('./country');
 module.exports={
     category,
     dimension,
@@ -24,5 +25,6 @@ module.exports={
     deliveryopt,
     igst,
     sgst,
-    cgst
+    cgst,
+    country
 };

@@ -2,7 +2,7 @@ const express=require('express');
 const PORT=process.env.PORT||3000;
 const app=express();
 let path=require('path');
-let {category,subcategory,product,type,dimension,delivery,order,orderdetails,picture,deliveryopt,igst,cgst,sgst}=require('./routes');
+let {category,subcategory,product,type,dimension,delivery,order,orderdetails,picture,deliveryopt,igst,cgst,sgst,country}=require('./routes');
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     res.setHeader(
@@ -31,6 +31,7 @@ app.use('/picture',picture);
 app.use('/igst',igst);
 app.use('/cgst',cgst);
 app.use('/sgst',sgst);
+app.use('/country',country);
 app.listen(PORT,()=>{
     console.log('Server started');
 });

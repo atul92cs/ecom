@@ -48,6 +48,10 @@ const Product=sequelize.define('product',{
     Igst:{
         type:DataTypes.DECIMAL,
         allowNull:true
+    },
+    countryId:{
+        type:DataTypes.INTEGER,
+        allowNull:true
     }
 },{
     freezeTableName:true,
@@ -64,5 +68,5 @@ Product.belongsTo(Type,{foreignKey:'typeId'});
 //Cgst.hasMany(Product,{foreignKey:'cgstId'});
 //Product.belongsTo(Cgst,{foreignKey:'cgstId'});
 //Sgst.hasMany(Product,{foreignKey:'sgstId'});
-Product.belongsTo(Sgst,{foreignKey:'sgstId'});
+//Product.belongsTo(Sgst,{foreignKey:'sgstId'});
 module.exports=Product;

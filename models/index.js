@@ -11,6 +11,7 @@ const DeliveryOption=require('./deliverytype');
 const Igst=require('./igst');
 const Cgst=require('./cgst');
 const Sgst=require('./sgst');
+const Country=require('./country');
 const sequelize=require('../config/database');
 module.exports={
     Category,
@@ -25,7 +26,8 @@ module.exports={
     DeliveryOption,
     Igst,
     Cgst,
-    Sgst
+    Sgst,
+    Country
 }
 sequelize.sync({alter:true}).then((result)=>{
     

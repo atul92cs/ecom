@@ -1,20 +1,15 @@
-generateConditionOr=(req,res)=>{
+generateCondition=(req,res)=>{
+     let {filter}=req.query;
+     
+     filter=filter.split(',');
   
-    let okeys=Object.keys(req.query);
-    let ovalues=Object.values(req.query);
-    console.log(ovalues);
     conditions=[];
-    for (let i=0;i<okeys.length;i++){
-        for (let j=0;j<ovalues.length;j++)
-        {
-            if(i==j){
-            let condition={};
-           condition[okeys[i]]=ovalues[j];
-           conditions.push(condition);
-           
-            }
-        }
-    }
+    filter.forEach(element => {
+        element=JSON.parse(element.replace(/[\[\]]/g, ''));
+        console.log(element);
+        conditions.push(element);
+    }); 
+    console.log(conditions);
    return conditions;
 }
-module.exports={generateConditionOr};
+module.exports={generateCondition};

@@ -100,17 +100,37 @@ getProduct=(req,res)=>{
     });
 }
 getProductCount=(req,res)=>{
-    let{filter}=req.query;
-    Product.count({filter}).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    let {filter}=req.query;
+    if(!filter)
+    {
+        
+        Product.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        Product.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    });
+    }
 }
  calculateGst=(sgst,cgst,igst,cost)=>{
     let tax=(cost*((sgst+cgst+igst)/100));

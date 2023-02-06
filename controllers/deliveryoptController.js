@@ -1,6 +1,7 @@
 let {DeliveryOption}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
-
+const {Op}=require('sequelize');
+const {conditionBuilder, generateCondition}=require('../helpers/condition-builder');
 
 createDeliveryOptions=(req,res)=>{
     let {name}=req.body;
@@ -19,16 +20,34 @@ createDeliveryOptions=(req,res)=>{
 }
 
 getDeliveryOptions=(req,res)=>{
+   let {filter}=req.query;
+   if(!filter)
+   {
     DeliveryOption.findAll({}).then(result=>{
-            return res.status(successCode).json({
-                options:result
-            });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        return res.status(successCode).json({
+            options:result
         });
+}).catch(err=>{
+    return res.status(dbError).json({
+        msg:dbErrMessage,
+        error:err
     });
+});
+   }
+   else
+   {
+    let condition=generateCondition(req,res); 
+    DeliveryOption.findAll({where:{[Op.or]:condition}}).then(result=>{
+        return res.status(successCode).json({
+            options:result
+        });
+}).catch(err=>{
+    return res.status(dbError).json({
+        msg:dbErrMessage,
+        error:err
+    });
+});
+   }
 }
 
 updateDeliveryOption=(req,res)=>{
@@ -66,15 +85,35 @@ deleteDeliveryOption=(req,res)=>{
 }
 getDeliveryOptionsCount=(req,res)=>{
     let {filter}=req.query;
-    DeliveryOption.count(filter).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    if(!filter)
+    {
+        
+        DeliveryOption.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        DeliveryOption.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    });
+    }
 }
 module.exports={createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption,getDeliveryOptionsCount};

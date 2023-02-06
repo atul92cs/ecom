@@ -1,7 +1,8 @@
 let {queryInterface}=require('sequelize');
 let  {DeliveryOps}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
-
+let {Op}=require('sequelize');
+let {conditionBuilder, generateCondition}=require('../helpers/condition-builder');
 insertDeliveryBulk=(req,res)=>{
     let {productid,pincodes}=req.body;
       let deliveryops=createPincode(productid,pincodes);
@@ -33,16 +34,34 @@ insertDelivery=(req,res)=>{
     });
 }
 getDelivery=(req,res)=>{
-   DeliveryOps.findAll({}).then(result=>{
-    return res.status(successCode).json({
-        deliveryops:result
-    });
-   }).catch(err=>{
-    return res.status(dbError).json({
-        msg:dbErrMessage,
-        error:err
-    });
-   });
+  let {filter}=req.query;
+  if(!filter)
+  {
+    DeliveryOps.findAll({}).then(result=>{
+        return res.status(successCode).json({
+            deliveryops:result
+        });
+       }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+       });
+  }
+  else
+  {
+    let condition=generateCondition(req,res);
+    DeliveryOps.findAll({where:{[Op.or]:condition}}).then(result=>{
+        return res.status(successCode).json({
+            deliveryops:result
+        });
+       }).catch(err=>{
+        return res.status(dbError).json({
+            msg:dbErrMessage,
+            error:err
+        });
+       });
+  }
 }
 updateDelivery=(req,res)=>{
     let {id}=req.params;
@@ -87,15 +106,35 @@ createPincode=(productid,pincodes)=>{
 }
 getDeliveryCount=(req,res)=>{
     let {filter}=req.query;
-    DeliveryOps.count(filter).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    if(!filter)
+    {
+        
+        DeliveryOps.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        DeliveryOps.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    });
+    }
 }
 module.exports={insertDelivery,insertDeliveryBulk,updateDelivery,deleteDelivery,getDelivery,getDeliveryCount};

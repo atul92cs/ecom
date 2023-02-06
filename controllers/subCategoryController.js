@@ -64,17 +64,36 @@ deleteSubcategory=(req,res)=>{
     });
 }
 getSubCategoryCount=(req,res)=>{
-    let {filter}=req.query
-    console.log(filter);
-    Subcategory.count(filter).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    let {filter}=req.query;
+    if(!filter)
+    {
+        
+        Subcategory.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        Subcategory.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    });
+    }
 }
 module.exports={createSubcategory,getSubcategory,updateSubcategory,deleteSubcategory,getSubCategoryCount};

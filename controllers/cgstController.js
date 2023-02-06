@@ -1,6 +1,7 @@
 const {Cgst} =require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 const {generateCondition}=require('../helpers/condition-builder');
+const {Op}=require('sequelize');
 createCgst=(req,res)=>{
     let {name,value}=req.body;
     Cgst.create({
@@ -58,7 +59,7 @@ getCgst=(req,res)=>{
     {
         Cgst.findAll({}).then(result=>{
             return res.status(successCode).json({
-                igsts:result
+                cgsts:result
             });
         }).catch(err=>{
             return res.status(dbError).json({
@@ -72,7 +73,7 @@ getCgst=(req,res)=>{
         let condition=generateCondition(req,res);
         Cgst.findAll({where:{[Op.or]:condition}}).then(result=>{
             return res.status(successCode).json({
-                igsts:result
+                cgsts:result
             });
         }).catch(err=>{
             return res.status(dbError).json({
@@ -84,15 +85,35 @@ getCgst=(req,res)=>{
 }
 cgstCount=(req,res)=>{
     let {filter}=req.query;
-    Cgst.count(filter).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    if(!filter)
+    {
+        
+        Cgst.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        Cgst.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    })
+    }
 }
 module.exports={createCgst,deleteCgst,updateCgst,getCgst,cgstCount};

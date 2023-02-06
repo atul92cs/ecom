@@ -1,4 +1,4 @@
-let {OrderDetails,Product}=require('../models');
+let {OrderDetails,Product, Order}=require('../models');
 const {errorMsg,errorCode,successCode,createSuccess,dbError,dbErrMessage}=require('../constants/message');
 
 getOrderDetails=(req,res)=>{
@@ -36,15 +36,35 @@ getOrderDetailsByOrderId=(req,res)=>{
 }
 getOrderDetailsCount=(req,res)=>{
     let {filter}=req.query;
-    OrderDetails.count(filter).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    if(!filter)
+    {
+        
+        OrderDetails.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        OrderDetails.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    })
+    }
 }
 module.exports={getOrderDetails,getOrderDetailsByOrderId,getOrderDetailsCount};

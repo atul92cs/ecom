@@ -85,15 +85,35 @@ deleteDeliveryOption=(req,res)=>{
 }
 getDeliveryOptionsCount=(req,res)=>{
     let {filter}=req.query;
-    DeliveryOption.count(filter).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    if(!filter)
+    {
+        
+        DeliveryOption.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        DeliveryOption.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    });
+    }
 }
 module.exports={createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliveryOption,getDeliveryOptionsCount};

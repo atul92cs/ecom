@@ -84,17 +84,36 @@ getCategory=(req,res)=>{
   }
 }
 getCategoryCount=(req,res)=>{
-    
-     let conditions=generateCondition(req);
-    Category.count({where:{[Op.and]:conditions}}).then(result=>{
-        return res.status(successCode).json({
-            count:result
+    let {filter}=req.query;
+    if(!filter)
+    {
+        
+        Category.count({}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    }).catch(err=>{
-        return res.status(dbError).json({
-            msg:dbErrMessage,
-            error:err
+        
+
+    }
+    else
+    {
+        let conditions=generateCondition(req);
+        Category.count({where:{[Op.and]:conditions}}).then(result=>{
+            return res.status(successCode).json({
+                count:result
+            });
+        }).catch(err=>{
+            return res.status(dbError).json({
+                msg:dbErrMessage,
+                error:err
+            });
         });
-    });
+    }
 }
 module.exports={createCategory,updateCategory,deleteCategory,getCategory,getCategoryCount};

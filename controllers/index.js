@@ -11,6 +11,7 @@ let {createDeliveryOptions,getDeliveryOptions,updateDeliveryOption,deleteDeliver
 let {createIgst,deleteIgst,updateIgst,getIgst,igstCount}=require('./igstController');
 let {createSgst,deleteSgst,updateSgst,getSgst,sgstCount}=require('./sgstController');
 let {createCgst,deleteCgst,updateCgst,getCgst,cgstCount}=require('./cgstController');
+let {createCountry,deleteCountry,updateCountry,getCountries,getCountriesCount}=require('./countryController')
 module.exports={
     createCategory,
     updateCategory,
@@ -71,5 +72,11 @@ module.exports={
     deleteCgst,
     updateCgst,
     getCgst,
-    cgstCount
+    cgstCount,
+    createCountry,
+    deleteCountry,
+    updateCountry,
+    getCountries,
+    getCountriesCount
+
 }

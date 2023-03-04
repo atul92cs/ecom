@@ -20,3 +20,4 @@ dimensioncreateBulk=(req,res)=>{
         });
     });
 }
+module.exports={dimensioncreateBulk};

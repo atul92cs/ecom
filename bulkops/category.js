@@ -19,4 +19,4 @@ createCategoryBulk=(req,res)=>{
         })
     });
 }
-module.exports={createCategory};
+module.exports={createCategoryBulk};

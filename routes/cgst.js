@@ -1,7 +1,13 @@
 let {createCgst,deleteCgst,updateCgst,getCgst,cgstCount}=require('../controllers');
 let express=require('express');
+let {createCgstBulk}=require('../bulkops/cgst');
+let parser=require('../helpers/file-uploader');
+
 let router=express.Router();
 
+router.post('/bulk',parser.single('files'),(req,res)=>{
+    createCgstBulk(req,res);
+});
 router.post('/add',(req,res)=>{
     createCgst(req,res);
 });
